@@ -1,0 +1,49 @@
+{# summary macros #}
+{% macro list_summary(summary) %}
+<li class="mb-6">
+    <div class="flex flex-col md:flex-row items-center justify-between bg-gray-100 p-4 rounded-lg shadow-md border border-gray-300">
+
+        <!-- Title and Link -->
+        <div class="flex flex-col md:flex-row items-center space-x-2">
+            <p class="text-lg font-medium text-gray-900">
+                <a href="/summaries/{{ summary.id }}">{{ summary.title }}</a>
+            </p>
+            <a href="{{ summary.web_url }}" target="_blank" class="text-sky-600 hover:underline break-all">
+                {{ summary.web_url }}
+            </a>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex space-x-4 mt-4 md:mt-0">
+            <!-- Summarize Button / Status -->
+            {% if not summary.is_summarized %}
+            <form hx-target="closest li" hx-post="/summaries/summarize">
+                <input type="hidden" name="summary_id" value="{{ summary.id }}">
+                <button type="submit" class="bg-sky-600 text-white px-4 py-2 rounded-md hover:bg-sky-500 transition duration-150">
+                    Summarize
+                </button>
+            </form>
+            {% else %}
+            <span class="px-4 py-2 bg-green-100 text-green-800 font-semibold rounded-md">
+                Has Summary
+            </span>
+            {% endif %}
+
+            <!-- Make Audio Button / Status -->
+            {% if not summary.has_audio %}
+            <form hx-target="closest li" hx-post="/summaries/generate-audio">
+                <input type="hidden" name="summary_id" value="{{ summary.id }}">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 transition duration-150">
+                    Generate Audio
+                </button>
+            </form>
+            {% else %}
+            <span class="px-4 py-2 bg-green-100 text-green-800 font-semibold rounded-md">
+                Has Audio
+            </span>
+            {% endif %}
+        </div>
+    </div>
+</li>
+
+{% endmacro %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Application{% endblock %}</title>
+    <link href="{{ url_for('static', path='/css/main.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold">My Application</h1>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="container mx-auto p-8">
+        {% block content %}
+        <!-- Content from child template will go here -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-10">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 My Application</p>
+        </div>
+    </footer>
+
+</body>
+</html>
